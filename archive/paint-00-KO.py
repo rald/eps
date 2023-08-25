@@ -29,9 +29,6 @@ class paint:
     self.srsp(self.sth)
     self.srpc(self.org)
 
-
-
-  def pinfo(self):
     print("mh =",self.itoa(self.mh,16,4))
     print("ml =",self.itoa(self.ml,16,4))
 
@@ -49,7 +46,6 @@ class paint:
 
     print("fbh =",self.itoa(self.fbh,16,4))
     print("fbl =",self.itoa(self.fbl,16,4))
-
 
   def save(self,n):
     f=open(n,"wb")
@@ -160,11 +156,11 @@ class paint:
       self.srpc(self.gb()-128)
  
   do_jg(self):
-    if self.popb()<0:
+    if self.popb()>0:
       self.srpc(self.gb()-128)
  
   do_jl(self):
-    if self.popb()>0:
+    if self.popb()<0:
       self.srpc(self.gb()-128)
 
   do_br(self):
