@@ -1,0 +1,77 @@
+/*
+    d2r deg
+    degrees to radians
+    returns radian
+*/
+
+:d2r
+  pop ax
+  mul ax pi
+  div ax 180  
+  push ax
+  ret
+
+
+
+/*
+    move dist
+    moves dist pixels
+    if dist is positive forward 
+    if dist is negative backward
+    if pen_down is true it draws a line with pen_color
+*/
+
+:move
+  pop move_dist
+  
+  call d2r turtle_heading   
+  pop move_heading
+
+  set new_x move_heading 
+  cos new_x new_x
+  mul new_x move_dist
+  add new_x turtle_x
+
+  set new_y move_heading
+  sin new_y new_y
+  mul new_y move_dist
+  add new_y turtle_y
+
+  je move10 pen_down false
+  
+    line turtle_x turtle_y new_x new_y pen_color pen_size 
+
+  :move10
+
+  set turtle_x new_x
+  set turtle_y new_y
+
+  ret
+
+
+/*
+    turn angle
+    turns angle degrees
+    if angle is positive clockwise
+    if angle is negative counter clockwise
+*/
+
+:turn
+  pop turn_angle
+  add turtle_heading turn_angle
+  ret
+
+
+/*
+    jump x y
+    jumps to location x,y
+*/
+
+:jump
+  pop turtle_y turtle_x
+  ret
+
+
+
+
+

@@ -1,0 +1,76 @@
+debug 1
+tokens
+
+jmp main
+
+
+/*
+    arr vnam size val  
+    creates an array named vnam 
+    with size and default val
+*/
+
+:arr  
+  set arr_n ""
+  set arr_c 0
+  set arr_v 0
+  pop arr_v arr_c arr_n 
+  set arr_ax 0
+  set arr_cx 0
+  :arr_for_cx
+    set arr_ax arr_n "_" arr_cx
+    set @arr_ax arr_v
+    add arr_cx 1
+    jl arr_for_cx arr_cx arr_c   
+  ret
+  
+
+/*
+    g vnam idx
+    get arr val named vnam pos idx
+*/
+
+:g
+  set g_i 0
+  set g_n ""
+  pop g_i
+  pop g_n
+  set g_v g_n "_" g_i
+  push @g_v
+  ret
+
+
+
+/*
+    s vnam idx val
+    set arr named vnam pos idx with val
+*/
+
+:s
+  set s_i 0
+  set s_n 0
+  set s_d 0
+  pop s_d
+  pop s_i
+  pop s_n
+  set s_v s_n "_" s_i
+  set @s_v s_d
+  ret
+
+
+
+:main
+  set val 0
+  call arr "a" 10 143 
+
+  call s "a" 3 5254   // set arr a_3 to 5254 
+
+  call g "a" 3        // get arr a_3
+  pop val
+
+  say val
+
+end
+
+
+
