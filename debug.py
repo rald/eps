@@ -4,7 +4,7 @@ import re
 
 
 
-class Debug:
+class debug:
 
   h="0123456789ABCDEF"
 
@@ -73,7 +73,7 @@ class Debug:
     d=""
     q=False
     while not q:
-      d=Debug.h[n%b]+d
+      d=debug.h[n%b]+d
       n=int(n/b)
       if n<=0:
         q=True
@@ -95,7 +95,7 @@ class Debug:
       else:
         i-=1
 
-        n=Debug.fnd(Debug.h,s[i])
+        n=debug.fnd(debug.h,s[i])
         if n==-1:
           raise Exception("atoi: invalid digit")      
         d+=n*pow(b,j)
@@ -185,81 +185,81 @@ class Debug:
   def gins(self,a):
     s=""
     b0=self.m[a]
-    h0=Debug.itoa(b0,16,2)
+    h0=debug.itoa(b0,16,2)
     if b0==0x00:
       s+=h0+"      NO"
       a+=1
     elif b0==0x01:
-      h0=Debug.itoa(b0,16,2)
+      h0=debug.itoa(b0,16,2)
       s+=h0+"      AD"
       a+=1
     elif b0==0x02:
-      h0=Debug.itoa(b0,16,2)
+      h0=debug.itoa(b0,16,2)
       s+=h0+"      SU"
       a+=1
     elif b0==0x03:
-      h0=Debug.itoa(b0,16,2)
+      h0=debug.itoa(b0,16,2)
       s+=h0+"      PU"
       a+=1
     elif b0==0x04:
-      h0=Debug.itoa(b0,16,2)
+      h0=debug.itoa(b0,16,2)
       s+=h0+"      PO"
       a+=1
     elif b0==0x05:
       b1=self.gw(a+1)
-      h1=Debug.itoa(b1,16,4)
+      h1=debug.itoa(b1,16,4)
       s+=h0+" "+h1+" MA "+h1
       a+=3
     elif b0==0x06:
       b1=self.gw(a+1)
-      h1=Debug.itoa(b1,16,4)
+      h1=debug.itoa(b1,16,4)
       s+=h0+" "+h1+" AM "+h1
       a+=3
     elif b0==0x07:
       b1=self.gb(a+1)
-      h1=Debug.itoa(b1,16,2)
+      h1=debug.itoa(b1,16,2)
       s+=h0+" "+h1+"   IA "+h1
       a+=2
     elif b0==0x08:
       s+=h0+"      IN"
       a+=1
     elif b0==0x09:
-      h0=Debug.itoa(b0,16,2)
+      h0=debug.itoa(b0,16,2)
       s+=h0+"      DE"
       a+=1
     elif b0==0x0A:
       b1=self.gw(a+1)
-      h1=Debug.itoa(b1,16,4)
+      h1=debug.itoa(b1,16,4)
       s+=h0+" "+h1+" JU "+h1
       a+=3
     elif b0==0x0B:
       b1=self.gw(a+1)
-      h1=Debug.itoa(b1,16,4)
+      h1=debug.itoa(b1,16,4)
       s+=h0+" "+h1+" SO "+h1
       a+=3
     elif b0==0x0C:
       b1=self.gb(a+1)
-      h1=Debug.itoa(b1,16,2)
+      h1=debug.itoa(b1,16,2)
       s+=h0+" "+h1+"   CO "+h1
       a+=2
     elif b0==0x0D:
       b1=self.gb(a+1)
-      h1=Debug.itoa(b1,16,2)
+      h1=debug.itoa(b1,16,2)
       s+=h0+" "+h1+"   JE "+h1
       a+=2
     elif b0==0x0E:
       b1=self.gb(a+1)
-      h1=Debug.itoa(b1,16,2)
+      h1=debug.itoa(b1,16,2)
       s+=h0+" "+h1+"   JN "+h1
       a+=2
     elif b0==0x0F:
       b1=self.gb(a+1)
-      h1=Debug.itoa(b1,16,2)
+      h1=debug.itoa(b1,16,2)
       s+=h0+" "+h1+"   JG "+h1
       a+=2
     elif b0==0x10:
       b1=self.gb(a+1)
-      h1=Debug.itoa(b1,16,2)
+      h1=debug.itoa(b1,16,2)
       s+=h0+" "+h1+"   JL "+h1
       a+=2
     elif b0==0x11:
@@ -281,7 +281,7 @@ class Debug:
     i=a0
     while i<=a1:
       r=self.gins(i)
-      print(Debug.itoa(i,16,4)+":",r["s"])
+      print(debug.itoa(i,16,4)+":",r["s"])
       i=r["a"]
 
 
@@ -334,27 +334,24 @@ class Debug:
 
   def dmp(self,s,e):
     for i in range(s,e+1):
-      print(Debug.itoa(i,16,4),Debug.itoa(self.m[i],16,2))
-
-
-
-
+      print(debug.itoa(i,16,4),debug.itoa(self.m[i],16,2))
 
 
 
   def regs(self):
     print("REGS:")
     print(
-      "AX =",Debug.itoa(self.grax(),16,4),
-      "AL =",Debug.itoa(self.gral(),16,2),
-      "AH =",Debug.itoa(self.grah(),16,2)
+      "AX =",debug.itoa(self.grax(),16,4),
+      "AL =",debug.itoa(self.gral(),16,2),
+      "AH =",debug.itoa(self.grah(),16,2)
     )
     
     print(
-      "SP =",Debug.itoa(self.grsp(),16,4),
-      "SL =",Debug.itoa(self.grsl(),16,2),
-      "SH =",Debug.itoa(self.grsh(),16,2)
+      "SP =",debug.itoa(self.grsp(),16,4),
+      "SL =",debug.itoa(self.grsl(),16,2),
+      "SH =",debug.itoa(self.grsh(),16,2)
     )
+
 
 
   def stk(self):
@@ -365,12 +362,12 @@ class Debug:
       if j!=0 and j%16==0: 
         print(f"'{s}'")
         s=""
-      if j%16==0: print(Debug.itoa(i,16,2),end=": ")
+      if j%16==0: print(debug.itoa(i,16,2),end=": ")
       if self.grsp()==i:
-        print("<",Debug.itoa(self.m[i],16,2),">",sep="",end="")
+        print("<",debug.itoa(self.m[i],16,2),">",sep="",end="")
       else:
         if j%8==0: print(" ",end="") 
-        print(Debug.itoa(self.m[i],16,2),end="")
+        print(debug.itoa(self.m[i],16,2),end="")
         if self.grsp()-1!=i: print(" ",end="")
       c=chr(self.m[i])
       if c.isspace() or not c.isprintable(): c='.'
@@ -386,7 +383,7 @@ class Debug:
     
     while not q:
 
-      pc=Debug.itoa(self.grpc(),16,4)
+      pc=debug.itoa(self.grpc(),16,4)
 
       c=input(f"{pc} > ")
 
@@ -401,9 +398,9 @@ class Debug:
         elif t[0]=="S":
           self.stk()
         elif t[0]=="RAX":
-          print(Debug.itoa(self.grax(),16,4))
+          print(debug.itoa(self.grax(),16,4))
         elif t[0]=="RSP":
-          print(Debug.itoa(self.grsp(),16,4))
+          print(debug.itoa(self.grsp(),16,4))
         elif t[0]=="NO":
           self.mw1(0x00)
         elif t[0]=="AD":
@@ -423,68 +420,68 @@ class Debug:
       elif len(t)==2:
         if len(t[1])==2:
           if t[0]=="IA":
-            self.mw2(0x07,Debug.atoi(t[1],16)%256)
+            self.mw2(0x07,debug.atoi(t[1],16)%256)
           elif t[0]=="CO":
-            self.mw2(0x0C,Debug.atoi(t[1],16)%256)
+            self.mw2(0x0C,debug.atoi(t[1],16)%256)
           elif t[0]=="JE":
-            self.mw2(0x0D,Debug.atoi(t[1],16)%256)
+            self.mw2(0x0D,debug.atoi(t[1],16)%256)
           elif t[0]=="JN":
-            self.mw2(0x0E,Debug.atoi(t[1],16)%256)
+            self.mw2(0x0E,debug.atoi(t[1],16)%256)
           elif t[0]=="JG":
-            self.mw2(0x0F,Debug.atoi(t[1],16)%256)
+            self.mw2(0x0F,debug.atoi(t[1],16)%256)
           elif t[0]=="JL":
-            self.mw2(0x10,Debug.atoi(t[1],16)%256)
+            self.mw2(0x10,debug.atoi(t[1],16)%256)
         elif len(t[1])==4:
           if t[0]=="RAX":
-            self.srax(Debug.atoi(t[1],16))
+            self.srax(debug.atoi(t[1],16))
           elif t[0]=="RSP":
-            self.srsp(Debug.atoi(t[1],16))
+            self.srsp(debug.atoi(t[1],16))
           elif t[0]=="ORG":
-            self.srpc(Debug.atoi(t[1],16))
+            self.srpc(debug.atoi(t[1],16))
           elif t[0]=="SAVE":
             self.save(t[1])
           elif t[0]=="LOAD":
             self.load(t[1])
           elif t[0]=="MA":
             self.mw3(0x05,
-              Debug.atoi(t[1],16)%256,
-              int(Debug.atoi(t[1],16)/256)%256,
+              debug.atoi(t[1],16)%256,
+              int(debug.atoi(t[1],16)/256)%256,
             )
           elif t[0]=="AM":
             self.mw3(0x06,
-              Debug.atoi(t[1],16)%256,
-              int(Debug.atoi(t[1],16)/256)%256,
+              debug.atoi(t[1],16)%256,
+              int(debug.atoi(t[1],16)/256)%256,
             )
           elif t[0]=="JU":
             self.mw3(0x0A,
-              Debug.atoi(t[1],16)%256,
-              int(Debug.atoi(t[1],16)/256)%256,
+              debug.atoi(t[1],16)%256,
+              int(debug.atoi(t[1],16)/256)%256,
             )
           elif t[0]=="SO":
             self.mw3(0x0B,
-              Debug.atoi(t[1],16)%256,
-              int(Debug.atoi(t[1],16)/256)%256,
+              debug.atoi(t[1],16)%256,
+              int(debug.atoi(t[1],16)/256)%256,
             )
       elif len(t)==3:
         if t[0]=="D":
-          a0=Debug.atoi(t[1],16)
-          a1=Debug.atoi(t[2],16)
+          a0=debug.atoi(t[1],16)
+          a1=debug.atoi(t[2],16)
           self.dmp(a0,a1)
         if t[0]=="U":
-          a0=Debug.atoi(t[1],16)
-          a1=Debug.atoi(t[2],16)
+          a0=debug.atoi(t[1],16)
+          a1=debug.atoi(t[2],16)
           self.una(a0,a1)
       elif len(t)>=3:
         if t[0]=="E":
-          i=Debug.atoi(t[1],16)
+          i=debug.atoi(t[1],16)
           for j in range(2,len(t)):
-            self.m[i+j-2]=Debug.atoi(t[j],16)%256                    
+            self.m[i+j-2]=debug.atoi(t[j],16)%256                    
         
 
 
       
 
-debug=Debug()
+debug=debug()
 
 debug.start()
 
