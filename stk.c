@@ -139,10 +139,10 @@ void do_new_stack() {
   unsigned int b;
   unsigned int e;
   do {
-    printf("Enter hex byte (0000-FFFF): ");
+    printf("Enter hex byte begin (0000-FFFF): ");
   } while(scanf("%04x",&b)!=1);
   do {
-    printf("Enter hex byte (0000-FFFF): ");
+    printf("Enter hex byte end   (0000-FFFF): ");
   } while(scanf("%04x",&e)!=1);
   stkf(&stk);
   stk=stkn(b,e);
