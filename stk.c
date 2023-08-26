@@ -22,7 +22,6 @@ Stack *Stack_New(uint16_t begin,uint16_t end) {
     stack->begin=begin;
     stack->end=end;
     stack->top=stack->end;
-    stack->size=(stack->end>=stack->begin?stack->end-stack->begin:stack->begin-stack->end)+1;
   }
   return stack;
 }
