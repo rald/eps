@@ -111,7 +111,6 @@ void dump(Stack *stack,uint8_t *mem,uint16_t mem_max) {
 void do_pushb(Stack *stack,uint8_t *mem,uint16_t mem_max) {
   unsigned int b;
   do {
-    fflush(stdin);
     printf("Enter hex byte (00-FF): ");
   } while(scanf("%x",&b)!=1 || b>0xFF);
   pushb(stack,b%256,mem,mem_max);
@@ -126,11 +125,9 @@ void do_new_stack(Stack **stack,uint16_t mem_max) {
   unsigned int begin;
   unsigned int end;
   do {
-    fflush(stdin);
     printf("Enter hex byte begin (0000-%04X): ",mem_max);
   } while(scanf("%x",&begin)!=1 || begin>(unsigned int)mem_max);
   do {
-    fflush(stdin);
     printf("Enter hex byte end   (0000-%04X): ",mem_max);
   } while(scanf("%x",&end)!=1 || end>(unsigned int)mem_max);
   Stack_Free(stack);
@@ -140,7 +137,6 @@ void do_new_stack(Stack **stack,uint16_t mem_max) {
 void do_realloc(Stack **stack,uint8_t **mem,uint16_t *mem_max) {
   unsigned int w;
   do {
-    fflush(stdin);
     printf("Enter hex byte mem size (0000-FFFF): ");
   } while(scanf("%x",&w)!=1 || w>0xFFFF);
   *mem_max=w;
@@ -167,7 +163,6 @@ void menu(Stack **stack,uint8_t **mem,uint16_t *mem_max) {
     );
 
     scanf("%d",&choice);
-    fflush(stdin);
 
     switch(choice) {
       case 0: quit=true; break;

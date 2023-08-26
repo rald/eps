@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <title>3d test</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+
+
+
+function Color(r,g,b) {
+  this.r=r;
+  this.g=g;
+  this.b=b;
+  
+  this.rgb=function() {
+      return `rgb(${this.r},${this.g},${this.b})`;
+  }
+}
+
+
+var palette=[
+  new Color(26,28,44),
+  new Color(93,39,93),
+  new Color(177,62,83),
+  new Color(239,125,87),
+  new Color(255,205,117),
+  new Color(167,240,112),
+  new Color(56,183,100),
+  new Color(37,113,121),
+  new Color(41,54,111),
+  new Color(59,93,201),
+  new Color(65,166,246),
+  new Color(115,239,247),
+  new Color(244,244,244),
+  new Color(148,176,194),
+  new Color(86,108,134),
+  new Color(51,60,87),
+];
+
+function Point3D(x,y,z) {
+  this.x=x;
+  this.y=y;
+  this.z=z;
+}
+
+function Point2D(x,y) {
+  this.x=x;
+  this.y=y;
+}
+
+function Camera(x,y,z) {
+  this.x=x;
+  this.y=y;
+  this.z=z;
+}
+
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+
+canvas.width=256;
+canvas.height=256;
+
+ctx.fillStyle=palette[0].rgb();
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+var hw=canvas.width/2;
+var hh=canvas.height/2;
+
+
+function C2D(c,p) {
+  var f=p.z-c.z;
+  return new Point2D(
+    (p.x-c.x)*(f/(p.z==0?1:p.z))+c.x,
+    (p.y-c.y)*(f/(p.z==0?1:p.z))+c.y
+  );
+}
+
+var d2r=Math.PI/180.0;
+
+function rotate(points, pitch, roll, yaw) {
+    var cosa = Math.cos(yaw);
+    var sina = Math.sin(yaw);
+
+    var cosb = Math.cos(pitch);
+    var sinb = Math.sin(pitch);
+
+    var cosc = Math.cos(roll);
+    var sinc = Math.sin(roll);
+
+    var Axx = cosa*cosb;
+    var Axy = cosa*sinb*sinc - sina*cosc;
+    var Axz = cosa*sinb*cosc + sina*sinc;
+
+    var Ayx = sina*cosb;
+    var Ayy = sina*sinb*sinc + cosa*cosc;
+    var Ayz = sina*sinb*cosc - cosa*sinc;
+
+    var Azx = -sinb;
+    var Azy = cosb*sinc;
+    var Azz = cosb*cosc;
+
+    var np=[];
+
+    for (var i = 0; i < points.length; i++) {
+        var px = points[i].x;
+        var py = points[i].y;
+        var pz = points[i].z;
+
+        var nx = Axx*px + Axy*py + Axz*pz;
+        var ny = Ayx*px + Ayy*py + Ayz*pz;
+        var nz = Azx*px + Azy*py + Azz*pz;
+        
+        np.push(new Point3D(nx,ny,nz));
+    }
+    
+    return np;
+}
+
+function line(p0,p1,c) {
+  ctx.beginPath();
+  ctx.strokeStyle=palette[c].rgb();
+  ctx.moveTo(p0.x+hw,p0.y+hh);
+  ctx.lineTo(p1.x+hw,p1.y+hh);
+  ctx.stroke();
+  ctx.closePath();
+}
+
+
+
+
+
+var cx=0;
+var cy=0;
+var cz=0;
+
+var j=0;
+
+function draw() {
+
+  ctx.fillStyle=palette[0].rgb();
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+var v=[
+  new Point3D(cx-32,cy-32,cz+32),  
+  new Point3D(cx+32,cy-32,cz+32),  
+  new Point3D(cx+32,cy+32,cz+32),  
+  new Point3D(cx-32,cy+32,cz+32),
+  new Point3D(cx-32,cy-32,cz-32),  
+  new Point3D(cx+32,cy-32,cz-32),  
+  new Point3D(cx+32,cy+32,cz-32),  
+  new Point3D(cx-32,cy+32,cz-32),
+];
+
+var nv=rotate(v,d2r*j,d2r*j,0);
+
+var e=[
+  [nv[0],nv[1]],
+  [nv[1],nv[2]],
+  [nv[2],nv[3]],
+  [nv[3],nv[0]],
+
+  [nv[4],nv[5]],
+  [nv[5],nv[6]],
+  [nv[6],nv[7]],
+  [nv[7],nv[4]],
+
+  [nv[0],nv[4]],
+  [nv[1],nv[5]],
+  [nv[2],nv[6]],
+  [nv[3],nv[7]],
+  
+];
+
+var c=new Camera(0,0,0);
+
+  for(var i=0;i<e.length;i++) {
+    p0=C2D(c,e[i][0]);
+    p1=C2D(c,e[i][1]);
+    line(p0,p1,12);
+  }
+  
+  j=(j+1)%360;
+  
+}
+      
+setInterval(draw,1000/60);      
+      
+    </script>
+  </body>
+</html>
