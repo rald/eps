@@ -139,10 +139,10 @@ void do_new_stack() {
   unsigned int b;
   unsigned int e;
   do {
-    printf("Enter hex byte begin (0000-FFFF): ");
+    printf("Enter hex byte begin (0000-%04X): ",mx);
   } while(scanf("%04x",&b)!=1);
   do {
-    printf("Enter hex byte end   (0000-FFFF): ");
+    printf("Enter hex byte end   (0000-%04X): ",mx);
   } while(scanf("%04x",&e)!=1);
   stkf(&stk);
   stk=stkn(b,e);
@@ -185,9 +185,9 @@ void menu() {
 
 int main() {
 
-  uint8_t v;
-
   srand(time(NULL));
+
+  setbuf(stdout,_IOFBF);
 
   m=malloc(sizeof(*m)*mx);
   stk=stkn(0x0000,mx-1);
