@@ -116,6 +116,7 @@ void dump() {
 void do_pushb() {
   unsigned int b;
   do {
+    fflush(stdin);
     printf("Enter hex byte (00-FF): ");
   } while(scanf("%02x",&b)!=1);
   pub(stk,b%256);
@@ -129,6 +130,7 @@ void do_popb() {
 void do_realloc() {
   unsigned int w;
   do {
+    fflush(stdin);
     printf("Enter hex byte (0000-FFFF): ");
   } while(scanf("%04x",&w)!=1);
   mx=w%65536;
@@ -139,9 +141,11 @@ void do_new_stack() {
   unsigned int b;
   unsigned int e;
   do {
+    fflush(stdin);
     printf("Enter hex byte begin (0000-%04X): ",mx);
   } while(scanf("%04x",&b)!=1);
   do {
+    fflush(stdin);
     printf("Enter hex byte end   (0000-%04X): ",mx);
   } while(scanf("%04x",&e)!=1);
   stkf(&stk);
