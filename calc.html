@@ -1,7 +1,7 @@
 <!doctype hmtl>
 <html>
   <head>
- 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>calc</title>
   </head>
   <body>
@@ -86,9 +86,9 @@ d2r=PI/180.0;
 r2d=180/PI
 
 
-// --------------------------
-// --- graphics functions ---
-// --------------------------
+//  --------------------------
+//  --- Graphics Functions ---
+//  --------------------------
 
 
 
@@ -108,9 +108,10 @@ line=(c,x0,y0,x1,y1,s)=>{
 }
 
 
-//  -----------------------
-//  --- Calculate Below ---
-//	-----------------------
+//  ------------------
+//  --- Calc Below ---
+//	------------------
+
 
 
 class Turtle {
@@ -149,6 +150,8 @@ class Turtle {
 		this.h=a;
 	}
 }
+
+
 
 body.style.background=rgba(pal[15]);
 C=make('canvas');
@@ -198,6 +201,8 @@ star(t,100);
 t.jump_rel(-10,-10);
 t.face(180);
 poly(t,5,50);
+
+
 
 //  -----------
 //  --- End ---
