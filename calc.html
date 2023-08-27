@@ -1,0 +1,208 @@
+<!doctype hmtl>
+<html>
+  <head>
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calc</title>
+  </head>
+  <body>
+<script>
+
+
+
+//  -----------------------
+//  --- Functions Below ---
+//	-----------------------
+
+
+
+class Color {
+  constructor(r,g,b,a) {
+    this.r=r;
+    this.g=g;
+    this.b=b;
+    this.a=a;
+  }
+}
+
+// sweetie-16 color palette by GrafxKid  
+const pal=[
+  new Color(26,28,44,1),
+  new Color(93,39,93,1),
+  new Color(177,62,83,1),
+  new Color(239,125,87,1),
+  new Color(255,205,117,1),
+  new Color(167,240,112,1),
+  new Color(56,183,100,1),
+  new Color(37,113,121,1),
+  new Color(41,54,111,1),
+  new Color(59,93,201,1),
+  new Color(65,166,246,1),
+  new Color(115,239,247,1),
+  new Color(244,244,244,1),
+  new Color(148,176,194.1),
+  new Color(86,108,134,1),
+  new Color(51,60,87,1),
+];  
+
+doc=document;
+body=doc.body;
+say=(x)=>doc.write(x+'<br>');
+ask=(m)=>window.prompt(m);
+sayl=(x)=>console.log(x);
+str=(n,b=10)=>n.toString(b);
+int=(x)=>Math.floor(x);
+pint=(s,b)=>parseInt(s,b);
+pflt=(s)=>parseFloat(s);
+ran=(x)=>int(Math.random()*x);
+ranr=(b,e)=>rnd(int(e)-int(b)+1)+int(b);
+div=(x,y)=>int(x/y);
+mod=(x,y)=>int(x%y);
+chr=(c)=>String.fromCharCode(c);
+ord=(s,i=0)=>s.charCodeAt(i);
+sin=(x)=>Math.sin(x);
+cos=(x)=>Math.cos(x);
+tan=(x)=>Math.tan(x);
+log=(x)=>Math.log(x);
+base=(x,y)=>log(y)/log(x);
+make=(e)=>doc.createElement(e);
+add=(o,e)=>o.append(e);
+ani=f=>window.requestAnimationFrame(f);
+sint=(f,t)=>window.setInterval(f,t);
+sout=(f,t)=>window.setTimeout(f,t);
+fac=(n)=>{var r=n;if(n===0||n===1)return 1;while(n>1){n--;r*= n;}return r;}
+nPr=(n,r)=>fac(n)/fac(n-r);
+nCr=(n,r)=>fac(n)/fac(r)*fac(n-r);
+perp=(n,N)=>(n/N)*100;
+pern=(p,N)=>(p*N)/100;
+rnd=(x)=>Math.round(x);
+abs=(x)=>Math.abs(x);
+sgn=(x)=>x<0?-1:x>0?1:0;
+ceil=(x)=>Math.ceil(x);
+flr=(x)=>Math.floor(x);
+trc=(x)=>Math.trunc(x);
+clamp=(x,b,e)=>x<=b?b:x>=e?e:x;
+PI=Math.PI;
+d2r=PI/180.0;
+r2d=180/PI
+
+
+// --------------------------
+// --- graphics functions ---
+// --------------------------
+
+
+
+gctx=(c)=>c.getContext("2d");
+txt=(c,t,x,y,f)=>{c.fillStyle=f;c.fillText(t,x,y);}
+pset=(c,x,y,f,s)=>{c.fillStyle=f;c.fillRect(x*s,y*s,s,s);}
+pget=(c,x,y)=>{let d=c.getImageData();return new Color(d.data[0],d.data[1],d.data[2],d.data[3]);}
+clear=(c,f)=>{c.fillStyle=f;c.fillRect(0,0,c.canvas.width,c.canvas.height);}
+rgba=(c)=>`rgba(${c.r},${c.g},${c.b},${c.a})`;
+line=(c,x0,y0,x1,y1,s)=>{
+	c.beginPath();
+	c.strokeStyle=s;
+	c.moveTo(x0,y0);
+	c.lineTo(x1,y1);
+	c.stroke();
+	c.closePath();
+}
+
+
+//  -----------------------
+//  --- Calculate Below ---
+//	-----------------------
+
+
+class Turtle {
+	constructor(c,x,y,h,color) {
+		this.c=c;
+		this.x=x;
+		this.y=y;
+		this.h=h;
+		this.color=color;
+		this.pendown=true;
+	}
+	
+	move(d) {
+		var nx=d*cos(d2r*this.h)+this.x;
+		var ny=d*sin(d2r*this.h)+this.y;
+		if(this.pendown) line(this.c,this.x,this.y,nx,ny,this.color);
+		this.x=nx;
+		this.y=ny;
+	}
+	
+	turn(a) {
+		this.h+=a;
+	}
+	
+	jump(x,y) {
+		this.x=x;
+		this.y=y;
+	}
+	
+	jump_rel(x,y) {
+		this.x+=x;
+		this.y+=y;
+	}
+	
+	face(a) {
+		this.h=a;
+	}
+}
+
+body.style.background=rgba(pal[15]);
+C=make('canvas');
+add(body,C);
+C.width=320;
+C.height=240;
+c=gctx(C);
+
+r=()=>{
+	var cx=(window.innerWidth-C.width)/2;
+	var cy=(window.innerHeight-C.height)/2;
+	C.style.position="absolute";
+	C.style.left=`${cx}px`;
+	C.style.top=`${cy}px`;
+}
+window.onresize=r;
+r();
+
+
+
+star=(t,s)=>{
+	for(var i=0;i<5;i++) {
+		t.move(s);
+		t.turn(144);
+	}
+}
+
+poly=(t,n,s)=>{
+	for(var i=0;i<n;i++) {
+		t.move(s);
+		t.turn(360/n);
+	}
+}
+
+
+clear(c,rgba(pal[0]));
+
+const t=new Turtle(c,C.width/2,C.height/2,0,rgba(pal[12]));
+
+c.translate(0.5,0.5); // fix pixel overlap
+
+c.lineWidth=5;
+c.lineJoin="round";
+c.lineCap="round";
+
+star(t,100);
+t.jump_rel(-10,-10);
+t.face(180);
+poly(t,5,50);
+
+//  -----------
+//  --- End ---
+//	-----------
+
+</script>    
+  </body>
+</html>
